@@ -6,7 +6,7 @@
 ![Accuracy](https://img.shields.io/badge/Accuracy-92.18%25-brightgreen.svg?style=for-the-badge)
 
 ## 📌 Project Overview
-Leveraging financial historical patterns, this project implements a highly optimized end-to-end Machine Learning pipeline to identify high-risk borrowers and predict loan defaulters. By analyzing a customer's credit attributes, debt-to-income metrics, and employment stability, this framework provides banking institutions with an automated, data-driven system to gauge default risk accurately before issuing capital.
+Leveraging financial historical patterns, this project implements a highly optimized end-to-end Machine Learning pipeline to identify high-risk borrowers and predict loan defaulters. By analyzing a customer's credit attributes and achieving an accuracy of 92.18%, debt-to-income metrics, and employment stability, this framework provides banking institutions with an automated, data-driven system to gauge default risk accurately before issuing capital.
 
 ---
 
