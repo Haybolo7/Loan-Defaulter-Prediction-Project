@@ -1,0 +1,311 @@
+/* =====================================================================
+   CYBER-CREDIT OPTIMIZED GLASSMORPHIC STYLE GUIDE
+   ===================================================================== */
+
+:root {
+    --bg-universe: #0a0c14;
+    --surface-glass: rgba(20, 26, 42, 0.65);
+    --border-glow: rgba(27, 203, 180, 0.15);
+    --teal-gaze: #1bcbb4;
+    --amber-risk: #ef4444;
+    --text-primary: #f1f5f9;
+    --text-dim: #64748b;
+    --panel-inset: #06080e;
+}
+
+body {
+    background-color: var(--bg-universe);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* HIGHLY BALANCED DASHBOARD PLATFORM CONTAINER */
+.dashboard-container {
+    display: flex;
+    gap: 40px;
+    width: 92%;
+    max-width: 1200px;
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glow);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+    box-sizing: border-box;
+}
+
+.control-panel {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.viewport-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel-inset);
+    border-radius: 18px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.02);
+    box-sizing: border-box;
+    align-self: stretch;
+}
+
+/* TYPOGRAPHY AND SEGMENT SECTIONING HEADER DESIGNS */
+.panel-header h2 {
+    margin: 8px 0 4px 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.panel-header h3 {
+    margin: 0 0 25px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+}
+
+.panel-subtitle {
+    margin: 0 0 25px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.status-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: rgba(27, 203, 180, 0.1);
+    color: var(--teal-gaze);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.category-divider {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin: 20px 0 12px 0;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 6px;
+}
+
+/* CONCISE CONTROL INTERACTIVE DATA FIELDS GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.input-card {
+    background: var(--panel-inset);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.input-card:focus-within {
+    border-color: rgba(27, 203, 180, 0.4);
+    box-shadow: 0 0 15px rgba(27, 203, 180, 0.08);
+}
+
+.input-card label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.input-card input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px 0;
+    width: 80%;
+}
+
+.input-card input:focus {
+    outline: none;
+}
+
+.unit-tag {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.15);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* PREMIUM PULSING GLOW INTERACTION BUTTON */
+.pipeline-btn {
+    width: 100%;
+    margin-top: 30px;
+    padding: 18px;
+    background: var(--teal-gaze);
+    color: var(--bg-universe);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.pipeline-btn:hover {
+    transform: translateY(-2px);
+}
+
+.pipeline-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+/* TELEMETRY METRIC OUTPUT MONITOR CARDS */
+.telemetry-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.metric-block {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 20px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
+
+.metric-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+}
+
+.metric-main {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-top: 4px;
+}
+
+/* TRANSITION CARD COLOR CODE STATES */
+.status-idle .metric-main { color: rgba(255,255,255,0.2); }
+.status-clear { border-left: 4px solid var(--teal-gaze); background: rgba(27,203,180,0.02); }
+.status-clear .metric-main { color: var(--teal-gaze); }
+.status-risk { border-left: 4px solid var(--amber-risk); background: rgba(239,68,68,0.02); }
+.status-risk .metric-main { color: var(--amber-risk); }
+
+/* PROGRESS BAR SPECTROGRAM INDICATOR */
+.probability-display {
+    margin-top: 10px;
+}
+
+.probability-display span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+}
+
+.bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.dynamic-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--text-dim);
+    border-radius: 10px;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* DIAGNOSTIC CONSOLE STREAM WRAPPERS */
+.diagnostic-console {
+    margin-top: 10px;
+}
+
+.diagnostic-console h5 {
+    margin: 0 0 14px 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+}
+
+.console-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.console-label { color: rgba(255,255,255,0.5); }
+.console-val { font-family: 'JetBrains Mono', monospace; color: var(--teal-gaze); font-weight: 600; }
+
+.console-log {
+    margin-top: 18px;
+    background: rgba(0,0,0,0.3);
+    padding: 14px;
+    border-radius: 8px;
+    border-left: 2px solid var(--text-dim);
+}
+
+.terminal-prefix {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 4px;
+}
+
+#pipelineLog {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.7);
+}
