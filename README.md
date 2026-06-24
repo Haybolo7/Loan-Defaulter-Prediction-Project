@@ -27,7 +27,7 @@ Leveraging financial historical patterns, this project implements a highly optim
 3. **Categorical Handling:** Safe vectorized processing using strict multi-track `OneHotEncoder` pipelines mapping disjoint elements cleanly.
 
 ### Ensemble Modeling Pipeline
-The system utilizes a structured, cooperative model framework to handle complex tabular structures:
+The system utilizes a structured, cooperative model framework to handle complex tabular structures. It can be accessed from the given url: https://loan-defaulter-prediction-project.onrender.com/.
 
 * **Base Estimator:** **XGBoost Classifier** (Gradient Boosting with optimized log-loss evaluation profiles) for structural interaction patterns with achieving of outstanding acuuracy of **92.18%** .
 * **Voting Tier:** A soft-voting classifier blending probabilistic metrics.
