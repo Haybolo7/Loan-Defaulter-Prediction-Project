@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Risk Core Ensembles Terminal</title>
+</head>
+<body>
+    <div class="dashboard-container">
+        
+        <div class="control-panel">
+            <div class="panel-header">
+                <h2>Loan Defaulter Prediction System</h2>
+                <p class="panel-subtitle">Calibrate applicant properties to compute across neural state trees.</p>
+            </div>
+            
+            <form id="riskForm" onsubmit="executeEnsemblePipeline(event)">
+                <div class="category-divider">💰 Financial Commitments</div>
+                <div class="form-grid">
+                    <div class="input-card">
+                        <label>Requested Loan</label>
+                        <input type="number" name="LOAN" required min="1000" max="500000" value="25000">
+                        <span class="unit-tag">USD</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Mortgage Due</label>
+                        <input type="number" name="MORTDUE" required min="0" max="1000000" value="75000">
+                        <span class="unit-tag">USD</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Property Value</label>
+                        <input type="number" name="VALUE" required min="1000" max="2000000" value="120000">
+                        <span class="unit-tag">USD</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Debt-To-Income</label>
+                        <input type="number" name="DEBTINC" required min="0" max="100" step="0.1" value="32.5">
+                        <span class="unit-tag">%</span>
+                    </div>
+                </div>
+
+                <div class="category-divider">📊 Credit History & History Profiles</div>
+                <div class="form-grid">
+                    <div class="input-card">
+                        <label>Years at Job (YOJ)</label>
+                        <input type="number" name="YOJ" required min="0" max="50" step="0.1" value="5">
+                        <span class="unit-tag">Yrs</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Derogatory Lines</label>
+                        <input type="number" name="DEROG" required min="0" max="20" value="0">
+                        <span class="unit-tag">Qty</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Delinquent Lines</label>
+                        <input type="number" name="DELINQ" required min="0" max="20" value="0">
+                        <span class="unit-tag">Qty</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Trade Line Age</label>
+                        <input type="number" name="CLAGE" required min="0" max="1000" step="0.1" value="180">
+                        <span class="unit-tag">Mth</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Credit Inquiries</label>
+                        <input type="number" name="NINQ" required min="0" max="20" value="1">
+                        <span class="unit-tag">NInq</span>
+                    </div>
+                    <div class="input-card">
+                        <label>Total Credit Lines</label>
+                        <input type="number" name="CLNO" required min="0" max="100" value="15">
+                        <span class="unit-tag">Lines</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="pipeline-btn">
+                    <span>Evaluate Risk Matrix</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </form>
+        </div>
+
+        <div class="viewport-panel">
+            <div class="panel-header">
+                <h3>Risk Telemetry Engine</h3>
+                <span class="status-pill">System Mode: Production</span>
+            </div>
+
+            <div class="telemetry-deck">
+                <div class="metric-block status-idle" id="verdictWrapper">
+                    <div class="metric-top">
+                        <span class="metric-label">CLASSIFICATION VERDICT</span>
+                        <div class="pulse-indicator" id="pulseIndicator"></div>
+                    </div>
+                    <div class="metric-main" id="riskVerdict">AWAITING INPUT</div>
+                </div>
+
+                <div class="metric-block">
+                    <span class="metric-label">DEFAULTER PROBABILITY SPECTROGRAM</span>
+                    <div class="probability-display">
+                        <span id="probabilityValue">0.0%</span>
+                        <div class="bar-container">
+                            <div class="dynamic-progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diagnostic-console">
+                    <h5>🛠️ Ensemble Weight Allocations</h5>
+                    <div class="console-row">
+                        <span class="console-label">Voting Consensus:</span>
+                        <span class="console-val" id="votingMetric">--</span>
+                    </div>
+                    <div class="console-row">
+                        <span class="console-label">Meta-Logistic Scalar:</span>
+                        <span class="console-val" id="metaMetric">--</span>
+                    </div>
+                    <div class="console-log">
+                        <span class="terminal-prefix">SYS_LOG_FEED:</span>
+                        <p id="pipelineLog">Matrix stream processing idle. Feed quantitative data array tokens to initiate classification logic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function executeEnsemblePipeline(event) {
+            event.preventDefault();
+            
+            const btn = document.querySelector('.pipeline-btn span');
+            const pBar = document.getElementById('progressBar');
+            btn.innerText = "COMPUTING TREES...";
+            
+            const formData = new FormData(document.getElementById('riskForm'));
+            const payload = Object.fromEntries(formData.entries());
+
+            fetch('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                setTimeout(() => {
+                    const verdict = document.getElementById('riskVerdict');
+                    const wrapper = document.getElementById('verdictWrapper');
+                    const pulse = document.getElementById('pulseIndicator');
+                    const percentage = (data.probability * 100).toFixed(1) + "%";
+
+                    // Apply analytical responses
+                    document.getElementById('probabilityValue').innerText = percentage;
+                    pBar.style.width = percentage;
+                    document.getElementById('votingMetric').innerText = data.voting_agreement;
+                    document.getElementById('metaMetric').innerText = data.meta_weight;
+                    document.getElementById('pipelineLog').innerText = data.analysis_insight;
+
+                    // Elegant status transformation
+                    wrapper.className = "metric-block";
+                    if (data.is_defaulter === 1) {
+                        verdict.innerText = "CRITICAL DEFAULTER RISK";
+                        wrapper.classList.add('status-risk');
+                        pBar.style.backgroundColor = "#ef4444";
+                        pulse.style.backgroundColor = "#ef4444";
+                    } else {
+                        verdict.innerText = "CREDIT SCHEME APPROVED";
+                        wrapper.classList.add('status-clear');
+                        pBar.style.backgroundColor = "#1bcbb4";
+                        pulse.style.backgroundColor = "#1bcbb4";
+                    }
+
+                    btn.innerText = "Evaluate Risk Matrix";
+                }, 400);
+            });
+        }
+    </script>
+</body>
+</html>
