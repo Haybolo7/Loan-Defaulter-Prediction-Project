@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Defaulter Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <div class="app-layout">
+        <!-- TOP NAVIGATION BAR -->
+        <header class="navbar glossy-card">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div>
+                    <h2>Loan Defaulter Prediction System</h2>
+                    <p class="nav-sub">Calibrate applicant properties to compute across neural state trees</p>
+                </div>
+            </div>
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                <span>System Mode: <strong>Production</strong></span>
+            </div>
+        </header>
+
+        <!-- MAIN TWO-COLUMN DASHBOARD -->
+        <div class="dashboard-grid">
+            
+            <!-- INPUT FORM SECTION -->
+            <section class="form-container">
+                <form action="/" method="POST" class="input-form">
+                    
+                    <!-- FINANCIAL COMMITMENTS CARD -->
+                    <div class="form-card glossy-card">
+                        <div class="card-header">
+                            <span class="section-tag"><span class="tag-icon">🔥</span> FINANCIAL COMMITMENTS</span>
+                        </div>
+                        <div class="input-grid">
+                            <div class="field-box">
+                                <label for="LOAN">REQUESTED LOAN ($)</label>
+                                <input type="number" id="LOAN" name="LOAN" value="{{ form_data.get('LOAN', '25000') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="MORTDUE">MORTGAGE DUE ($)</label>
+                                <input type="number" id="MORTDUE" name="MORTDUE" value="{{ form_data.get('MORTDUE', '75000') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="VALUE">PROPERTY VALUE ($)</label>
+                                <input type="number" id="VALUE" name="VALUE" value="{{ form_data.get('VALUE', '120000') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="DEBTINC">DEBT-TO-INCOME (%)</label>
+                                <input type="number" step="0.1" id="DEBTINC" name="DEBTINC" value="{{ form_data.get('DEBTINC', '32.5') }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CREDIT HISTORY & PROFILE CARD -->
+                    <div class="form-card glossy-card">
+                        <div class="card-header">
+                            <span class="section-tag"><span class="tag-icon">⚡</span> CREDIT HISTORY & PROFILES</span>
+                        </div>
+                        <div class="input-grid">
+                            <div class="field-box">
+                                <label for="JOB">OCCUPATIONAL CATEGORY</label>
+                                <select id="JOB" name="JOB">
+                                    <option value="Other" {% if form_data.get('JOB') == 'Other' %}selected{% endif %}>Other</option>
+                                    <option value="ProfExe" {% if form_data.get('JOB') == 'ProfExe' %}selected{% endif %}>Professional / Exec</option>
+                                    <option value="Office" {% if form_data.get('JOB') == 'Office' %}selected{% endif %}>Office Worker</option>
+                                    <option value="Mgr" {% if form_data.get('JOB') == 'Mgr' %}selected{% endif %}>Manager</option>
+                                    <option value="Sales" {% if form_data.get('JOB') == 'Sales' %}selected{% endif %}>Sales</option>
+                                    <option value="Self" {% if form_data.get('JOB') == 'Self' %}selected{% endif %}>Self-Employed</option>
+                                </select>
+                            </div>
+                            <div class="field-box">
+                                <label for="REASON">LOAN PURPOSE</label>
+                                <select id="REASON" name="REASON">
+                                    <option value="HomeImp" {% if form_data.get('REASON') == 'HomeImp' %}selected{% endif %}>Home Improvement</option>
+                                    <option value="DebtCon" {% if form_data.get('REASON') == 'DebtCon' %}selected{% endif %}>Debt Consolidation</option>
+                                </select>
+                            </div>
+                            <div class="field-box">
+                                <label for="YOJ">YEARS AT JOB (YOJ)</label>
+                                <input type="number" id="YOJ" name="YOJ" value="{{ form_data.get('YOJ', '5') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="DEROG">DEROGATORY LINES</label>
+                                <input type="number" id="DEROG" name="DEROG" value="{{ form_data.get('DEROG', '0') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="DELINQ">DELINQUENT LINES</label>
+                                <input type="number" id="DELINQ" name="DELINQ" value="{{ form_data.get('DELINQ', '0') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="CLAGE">TRADELINE AGE (MONTHS)</label>
+                                <input type="number" id="CLAGE" name="CLAGE" value="{{ form_data.get('CLAGE', '180') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="NINQ">CREDIT INQUIRIES</label>
+                                <input type="number" id="NINQ" name="NINQ" value="{{ form_data.get('NINQ', '1') }}" required>
+                            </div>
+                            <div class="field-box">
+                                <label for="CLNO">TOTAL CREDIT LINES</label>
+                                <input type="number" id="CLNO" name="CLNO" value="{{ form_data.get('CLNO', '15') }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>EVALUATE RISK MATRIX</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </form>
+            </section>
+
+            <!-- TELEMETRY & RESULTS SECTION -->
+            <section class="telemetry-container glossy-card">
+                <div class="telemetry-header">
+                    <h3>RISK TELEMETRY ENGINE</h3>
+                    <span class="badge-verified">AI Verified Engine</span>
+                </div>
+
+                {% if result %}
+                    <!-- VERDICT BANNER -->
+                    <div class="verdict-card {% if result.prediction == 0 %}approved{% else %}rejected{% endif %}">
+                        <span class="verdict-label">CLASSIFICATION VERDICT</span>
+                        <h2 class="verdict-title">{{ result.verdict }}</h2>
+                    </div>
+
+                    <!-- CREDIT SCORE SPECTRUM GAUGE (Inspired by Screenshot 832) -->
+                    <div class="score-container">
+                        <div class="score-header">
+                            <div>
+                                <span class="score-sub">Fetched Credit Score</span>
+                                <div class="score-val-row">
+                                    <h1 class="score-num">{{ result.credit_score }}</h1>
+                                    <span class="score-tag">Score is <strong>{{ result.score_status }}</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Color Spectrum Bar -->
+                        <div class="spectrum-bar-wrapper">
+                            <div class="spectrum-bar">
+                                <div class="seg seg-red"></div>
+                                <div class="seg seg-orange"></div>
+                                <div class="seg seg-yellow"></div>
+                                <div class="seg seg-green"></div>
+                            </div>
+                            <div class="spectrum-pointer" style="left: {{ result.score_percentage }}%;">
+                                <div class="pointer-pin"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RISK SPECTROGRAM & METRICS -->
+                    <div class="metric-row">
+                        <div class="metric-card glossy-subcard">
+                            <span class="metric-title">DEFAULTER PROBABILITY</span>
+                            <div class="metric-big">{{ result.default_prob }}%</div>
+                            <div class="progress-bg">
+                                <div class="progress-fill" style="width: {{ result.default_prob }}%;"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card glossy-subcard">
+                            <span class="metric-title">LOAN TO VALUE (LTV)</span>
+                            <div class="metric-big">{{ result.ltv }}%</div>
+                            <span class="metric-sub text-emerald">Collateral Ratio Safe</span>
+                        </div>
+                    </div>
+
+                    <!-- MANAGED RECORDS / PORTFOLIO HIGHLIGHTS (Inspired by Screenshot 832) -->
+                    <div class="records-section">
+                        <h4 class="records-title">Calculated Financial Records</h4>
+                        <div class="records-grid">
+                            <div class="record-card border-rainbow">
+                                <div class="record-top">
+                                    <span class="record-icon">🏠</span>
+                                    <div class="record-info">
+                                        <strong>Net Collateral Equity</strong>
+                                        <p>Value minus Mortgage Due</p>
+                                    </div>
+                                    <span class="arrow-btn">↗</span>
+                                </div>
+                                <div class="record-val">${{ "{:,.2f}".format(result.net_equity) }}</div>
+                            </div>
+
+                            <div class="record-card">
+                                <div class="record-top">
+                                    <span class="record-icon">💳</span>
+                                    <div class="record-info">
+                                        <strong>Debt Servicing Index</strong>
+                                        <p>Income Obligation Margin</p>
+                                    </div>
+                                    <span class="arrow-btn">↗</span>
+                                </div>
+                                <div class="record-val">Optimal Band</div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <!-- DEFAULT STATE BEFORE SUBMISSION -->
+                    <div class="empty-telemetry">
+                        <div class="telemetry-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3>Awaiting Financial Parameters</h3>
+                        <p>Fill out the applicant profile on the left and submit to view real-time score spectrographs, default probabilities, and risk metrics.</p>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+
+        <!-- MODULAR ARCHITECTURE SECTION (Inspired by Screenshots 829 & 830) -->
+        <section class="modular-section">
+            <div class="section-title">
+                <h2>Production Pipeline & Architecture</h2>
+                <p>Four-stage end-to-end framework built for low-latency credit risk analysis</p>
+            </div>
+
+            <div class="architecture-grid">
+                <!-- STEP 1 -->
+                <div class="arch-card glossy-card">
+                    <div class="arch-illustration">
+                        <svg width="120" height="90" viewBox="0 0 200 150" fill="none">
+                            <path d="M100 20 L170 55 L100 90 L30 55 Z" fill="rgba(139, 92, 246, 0.25)" stroke="#8b5cf6" stroke-width="2"/>
+                            <path d="M100 40 L170 75 L100 110 L30 75 Z" fill="rgba(139, 92, 246, 0.35)" stroke="#a78bfa" stroke-width="2"/>
+                            <path d="M100 60 L170 95 L100 130 L30 95 Z" fill="rgba(139, 92, 246, 0.5)" stroke="#c4b5fd" stroke-width="2"/>
+                            <circle cx="100" cy="35" r="5" fill="#a78bfa"/>
+                            <circle cx="140" cy="50" r="4" fill="#6366f1"/>
+                            <line x1="100" y1="35" x2="140" y2="50" stroke="#a78bfa" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>1 - Data Audit & Collection</h3>
+                    <p>Consolidated three years of lending data and integrated alternative financial sources like payment histories for deeper risk insights.</p>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="arch-card glossy-card">
+                    <div class="arch-illustration">
+                        <svg width="120" height="90" viewBox="0 0 200 150" fill="none">
+                            <rect x="70" y="40" width="60" height="60" rx="8" fill="rgba(99, 102, 241, 0.3)" stroke="#6366f1" stroke-width="2" transform="rotate(-15 100 70)"/>
+                            <circle cx="100" cy="65" r="18" stroke="#38bdf8" stroke-width="2.5"/>
+                            <line x1="100" y1="65" x2="112" y2="55" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M40 110 Q 100 20, 160 30" stroke="#818cf8" stroke-width="3" fill="none"/>
+                            <polygon points="160,30 148,28 155,40" fill="#818cf8"/>
+                        </svg>
+                    </div>
+                    <h3>2 - Model Development</h3>
+                    <p>Trained Random Forest & Stacking Classifiers with feature engineering and SMOTE oversampling to maximize predictive precision.</p>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="arch-card glossy-card">
+                    <div class="arch-illustration">
+                        <svg width="120" height="90" viewBox="0 0 200 150" fill="none">
+                            <rect x="40" y="30" width="120" height="80" rx="10" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="2"/>
+                            <line x1="60" y1="90" x2="60" y2="60" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="80" y1="90" x2="80" y2="45" stroke="#818cf8" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="100" y1="90" x2="100" y2="70" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="120" y1="90" x2="120" y2="40" stroke="#a78bfa" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M80 110 L120 110 L100 130 Z" fill="#38bdf8"/>
+                        </svg>
+                    </div>
+                    <h3>3 - System Integration</h3>
+                    <p>Seamlessly connected loan application webhooks to internal risk engines for instantaneous sub-second decision making.</p>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="arch-card glossy-card">
+                    <div class="arch-illustration">
+                        <svg width="120" height="90" viewBox="0 0 200 150" fill="none">
+                            <rect x="70" y="20" width="70" height="95" rx="6" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="2"/>
+                            <path d="M40 50 A 25 25 0 0 1 85 85" stroke="#10b981" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <line x1="62" y1="67" x2="72" y2="55" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="85" y1="35" x2="125" y2="35" stroke="#10b981" stroke-width="2"/>
+                            <line x1="85" y1="45" x2="115" y2="45" stroke="#10b981" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>4 - Testing & Optimization</h3>
+                    <p>Continuous monitoring of borrower risk segments and live feedback loops to refine risk boundaries and prevent capital loss.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
