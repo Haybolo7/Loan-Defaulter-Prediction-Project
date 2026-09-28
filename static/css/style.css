@@ -1,0 +1,515 @@
+:root {
+    --bg-dark: #0b0d12;
+    --card-bg: rgba(22, 27, 38, 0.75);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-glow: rgba(139, 92, 246, 0.15);
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --input-bg: rgba(11, 13, 18, 0.8);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background Ambient Glow */
+.glow-bg {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app-layout {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Glossy Glassmorphism Style */
+.glossy-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* NAVIGATION HEADER */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand-logo {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.nav-brand h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.nav-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.status-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: var(--accent-green);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+/* TWO COLUMN GRID LAYOUT */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-card {
+    padding: 1.5rem;
+}
+
+.card-header {
+    margin-bottom: 1.2rem;
+}
+
+.section-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.field-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.field-box label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+.field-box input, .field-box select {
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.field-box input:focus, .field-box select:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    color: white;
+    border: none;
+    padding: 1.1rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(139, 92, 246, 0.45);
+}
+
+/* TELEMETRY SECTION */
+.telemetry-container {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.telemetry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.telemetry-header h3 {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.badge-verified {
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: #c4b5fd;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* VERDICT CARD */
+.verdict-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+    border-left: 4px solid var(--accent-purple);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.verdict-card.approved {
+    border-left-color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.verdict-card.rejected {
+    border-left-color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.verdict-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.verdict-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
+}
+
+.approved .verdict-title { color: var(--accent-green); }
+.rejected .verdict-title { color: var(--accent-red); }
+
+/* CREDIT SCORE SPECTRUM GAUGE */
+.score-container {
+    background: rgba(11, 13, 18, 0.5);
+    border: 1px solid var(--card-border);
+    padding: 1.25rem;
+    border-radius: 14px;
+}
+
+.score-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.score-val-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+.score-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.score-tag {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.score-tag strong {
+    color: var(--accent-green);
+}
+
+/* Spectrum Bar (Red -> Orange -> Yellow -> Green) */
+.spectrum-bar-wrapper {
+    position: relative;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+}
+
+.spectrum-bar {
+    display: flex;
+    gap: 6px;
+    height: 10px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.seg { flex: 1; border-radius: 3px; }
+.seg-red { background: #f97316; }
+.seg-orange { background: #facc15; }
+.seg-yellow { background: #84cc16; }
+.seg-green { background: #10b981; }
+
+.spectrum-pointer {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    transition: left 0.5s ease-in-out;
+}
+
+.pointer-pin {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid white;
+}
+
+/* METRICS ROW */
+.metric-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.glossy-subcard {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--card-border);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.metric-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.metric-big {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0.3rem 0;
+}
+
+.progress-bg {
+    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+}
+
+.text-emerald { color: var(--accent-green); font-size: 0.75rem; }
+
+/* MANAGED RECORDS SECTION */
+.records-title {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+}
+
+.records-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.record-card {
+    background: rgba(11, 13, 18, 0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Gradient Rainbow Border Effect (Image 12 style) */
+.border-rainbow {
+    border: 1px solid transparent;
+    background-image: linear-gradient(rgba(11, 13, 18, 0.8), rgba(11, 13, 18, 0.8)), 
+                      linear-gradient(135deg, #ec4899, #8b5cf6, #06b6d4);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.record-top {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.record-icon { font-size: 1.2rem; }
+
+.record-info strong {
+    display: block;
+    font-size: 0.8rem;
+}
+
+.record-info p {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.arrow-btn {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.05);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+.record-val {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.empty-telemetry {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.telemetry-icon {
+    margin-bottom: 1rem;
+}
+
+/* MODULAR ARCHITECTURE SECTION */
+.modular-section {
+    margin-top: 2rem;
+}
+
+.section-title h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.section-title p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.architecture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+}
+
+.arch-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: transform 0.3s;
+}
+
+.arch-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.arch-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.arch-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.arch-card p {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
